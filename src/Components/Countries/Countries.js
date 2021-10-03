@@ -1,0 +1,33 @@
+import React, { useEffect, useState } from 'react';
+import Country from '../Country/Country';
+
+const Countries = () => {
+    const [countries, setCountries] = useState([]);
+    useEffect(() => {
+        fetch("https://restcountries.com/v3.1/all")
+            .then(res => res.json())
+            .then(data => setCountries(data))
+    }, [])
+
+
+    return (
+        <div>
+            <h1>
+                <u>Total Countries in the API: {countries.length}</u>
+            </h1>
+            {
+
+
+                countries.map(countries => <div>
+                    <Country
+                        name={countries.name.common} capital={countries.capital} population={countries.population}>
+                    </Country>
+                </div>)
+
+            }
+        </div>
+    );
+};
+
+export default Countries;
+
